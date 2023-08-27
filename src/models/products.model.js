@@ -33,7 +33,7 @@ const Product = db.define('products', {
     allowNull: false,
   },
   highlight_date: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'none',
   },
