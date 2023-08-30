@@ -1,22 +1,14 @@
 const express = require('express');
+const authController = require('../controllers/auth.contollers');
+const authMiddleware = require('../middlewares/auth.middleware');
 
+const userRouter = express.Router();
 
-const userRouter = express.Router()
+userRouter.route('/login').post(authController.login);
 
-userRouter.get("/", async (req,res) => {
-    try {
-        res.status(200).send("users")
-    } catch (error) {
-        res.status(400).send({error:error})
-    }
-}) 
+userRouter.use(authMiddleware.protect);
+userRouter.use(authMiddleware.renew);
 
-userRouter.post("/", async (req,res) => {
-    try {
-        res.status(200).send("user")
-    } catch (error) {
-        res.status(400).send({error:error})
-    }
-}) 
+userRouter.route('/').post(authController.signup);
 
 module.exports = userRouter;
