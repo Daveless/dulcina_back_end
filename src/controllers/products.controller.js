@@ -31,7 +31,7 @@ exports.createProducts = catchAsync(async (req, res, next) => {
 
 exports.updateProduct = catchAsync(async (req, res, next) => {
   const { product } = req;
-  const { name, image, price, highlight_date } = req.body;
+  const { name, imageUrl, price, highlight_date } = req.body;
 
   await product.update({
     name,
