@@ -5,6 +5,11 @@ const Product = require('../models/products.model');
 exports.findOrders = catchAsync(async (req, res, next) => {
   const orders = await Order.findAll({
     where: { status: 'pending' },
+    include: [
+      {
+        model: Product,
+      },
+    ],
   });
 
   res.status(200).json({
@@ -15,19 +20,24 @@ exports.findOrders = catchAsync(async (req, res, next) => {
 });
 
 exports.createOrder = catchAsync(async (req, res, next) => {
-  const { productId } = req.body;
+  const { destination, deliveryDate, productId } = req.body;
 
-  const product = await Product.findOne({
+  const currentProduct = await Product.findOne({
     where: {
       id: productId,
     },
   });
+  const priceCurrentProduct = currentProduct.price;
 
   const newOrder = await Order.create({
-    total: product.price,
-    subtotal: product.price,
-    productId,
+    destination,
+    deliveryDate,
+    subtotal: priceCurrentProduct,
+    total: priceCurrentProduct + 3,
+    products: [currentProduct],
   });
+
+  newOrder.addProduct(currentProduct);
 
   res.status(200).json({
     message: 'order created',
@@ -53,6 +63,7 @@ exports.updateOrder = catchAsync(async (req, res, next) => {
     currentOrder,
   });
 });
+
 exports.deleteProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 

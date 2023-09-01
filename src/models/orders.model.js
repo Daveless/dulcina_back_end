@@ -9,6 +9,10 @@ const Order = db.define('orders', {
     allowNull: false,
     unique: true,
   },
+  destination: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   total: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -17,14 +21,14 @@ const Order = db.define('orders', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  deliveryDate: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   status: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'pending',
-  },
-  productId: {
-    type: DataTypes.STRING,
-    allowNull: false,
   },
 });
 
