@@ -9,6 +9,8 @@ userRouter.route('/login').post(authController.login);
 userRouter.use(authMiddleware.protect);
 userRouter.use(authMiddleware.renew);
 
-userRouter.route('/').post(authController.signup);
+userRouter
+  .route('/')
+  .post(authMiddleware.restictTo('admin'), authController.signup);
 
 module.exports = userRouter;

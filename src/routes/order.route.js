@@ -1,17 +1,17 @@
-const express = require("express");
-const ordersController = require("../controllers/orders.controller");
-const { validProduct } = require("../middlewares/validProduct.middleware");
+const express = require('express');
+const ordersController = require('../controllers/orders.controller');
+const { validProduct } = require('../middlewares/validProduct.middleware');
 
 const productRouter = express.Router();
 
 productRouter
-  .route("/:id")
-  .patch(ordersController.updateOrder)
-  .delete(ordersController.deleteProduct);
+  .route('/:id')
+  .patch(authMiddleware.restictTo('admin'), ordersController.updateOrder)
+  .delete(authMiddleware.restictTo('admin'), ordersController.deleteProduct);
 
 productRouter
-  .route("/")
+  .route('/')
   .post(ordersController.createOrder)
-  .get(ordersController.findOrders);
+  .get(authMiddleware.restictTo('admin'), ordersController.findOrders);
 
 module.exports = productRouter;

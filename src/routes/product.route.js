@@ -7,11 +7,14 @@ const authMiddleware = require('../middlewares/auth.middleware');
 const productRouter = express.Router();
 
 productRouter.route('/').get(productsController.findProducts);
+productRouter.route('/:id').get(productsController.getProduct);
 
 productRouter.use(authMiddleware.protect);
 productRouter.use(authMiddleware.renew);
 
-productRouter.route('/').post(productsController.createProducts);
+productRouter
+  .route('/')
+  .post(authMiddleware.restictTo('admin'), productsController.createProducts);
 
 productRouter
   .route('/:id')
