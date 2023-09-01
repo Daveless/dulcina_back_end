@@ -46,6 +46,15 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getProduct = catchAsync(async (req, res, next) => {
+  const { product } = req;
+
+  res.status(200).json({
+    message: 'Product found',
+    product,
+  });
+});
+
 exports.deleteProduct = catchAsync(async (req, res, next) => {
   const { product } = req;
 
