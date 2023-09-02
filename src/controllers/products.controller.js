@@ -50,7 +50,7 @@ exports.getProduct = catchAsync(async (req, res, next) => {
   const { product } = req;
 
   res.status(200).json({
-    message: 'Product found',
+    message: 'Product by id found',
     product,
   });
 });
