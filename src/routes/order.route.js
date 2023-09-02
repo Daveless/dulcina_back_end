@@ -3,16 +3,19 @@ const ordersController = require('../controllers/orders.controller');
 const { validProduct } = require('../middlewares/validProduct.middleware');
 const authMiddleware = require('../middlewares/auth.middleware');
 
-const productRouter = express.Router();
+const orderRouter = express.Router();
 
-productRouter
+orderRouter.use(authMiddleware.protect);
+orderRouter.use(authMiddleware.renew);
+
+orderRouter
   .route('/:id')
   .patch(authMiddleware.restictTo('admin'), ordersController.updateOrder)
   .delete(authMiddleware.restictTo('admin'), ordersController.deleteProduct);
 
-productRouter
+orderRouter
   .route('/')
   .post(ordersController.createOrder)
   .get(authMiddleware.restictTo('admin'), ordersController.findOrders);
 
-module.exports = productRouter;
+module.exports = orderRouter;
