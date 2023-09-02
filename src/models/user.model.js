@@ -7,6 +7,7 @@ const User = db.define('users', {
     autoIncrement: true,
     allowNull: false,
     type: DataTypes.INTEGER,
+    unique: true,
   },
   name: {
     type: DataTypes.STRING,
