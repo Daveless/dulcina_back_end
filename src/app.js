@@ -18,7 +18,7 @@ const limiter = rateLimit({
 
 app.use(express.json());
 app.use(cors());
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.setHeader(
     'Access-Control-Allow-Origin',
     'https://deluxe-gecko-12cac4.netlify.app/'
