@@ -37,8 +37,8 @@ exports.createProducts = catchAsync(async (req, res, next) => {
   const { name, imageUrl, price, highlight_date, categoryId } = req.body;
 
   const fixedImgUrl = imageUrl.replace(
-    'https:res.cloudinary.comdccvupp4ximageuploadv1693177276dulcinaproducts',
-    'https://res.cloudinary.com/dccvupp4x/image/upload/v1693177276/dulcina/products/'
+    'https:res.cloudinary.comdccvupp4ximageuploadv1694107604dulcinaproducts',
+    'https://res.cloudinary.com/dccvupp4x/image/upload/v1694107604/dulcina/products/'
   );
   //quitarle la ruta base a imageUrl
   //
