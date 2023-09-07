@@ -36,9 +36,16 @@ exports.findProductsByCategory = catchAsync(async (req, res, next) => {
 exports.createProducts = catchAsync(async (req, res, next) => {
   const { name, imageUrl, price, highlight_date, categoryId } = req.body;
 
+  const fixedImgUrl = imageUrl.replace(
+    'https:res.cloudinary.comdccvupp4ximageuploadv1693177276dulcinaproducts',
+    'https://res.cloudinary.com/dccvupp4x/image/upload/v1693177276/dulcina/products/'
+  );
+  //quitarle la ruta base a imageUrl
+  //
+
   const newProduct = await Product.create({
     name,
-    imageUrl,
+    imageUrl: fixedImgUrl,
     price,
     highlight_date,
     categoryId,
