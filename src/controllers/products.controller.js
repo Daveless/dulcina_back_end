@@ -1,5 +1,6 @@
 const catchAsync = require('../utils/catchAsync');
 const Product = require('../models/products.model');
+const Category = require('../models/categories.model');
 
 exports.findProducts = catchAsync(async (req, res, next) => {
   const products = await Product.findAll({
@@ -13,14 +14,34 @@ exports.findProducts = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.findProductsByCategory = catchAsync(async (req, res, next) => {
+  const { category } = req.params;
+  const categoryId = await Category.findOne({
+    where: { name: category },
+  });
+
+  const productsByCategory = await Product.findAll({
+    where: {
+      categoryId: categoryId.id,
+    },
+  });
+
+  res.status(200).json({
+    message: 'Products found',
+    results: productsByCategory.length,
+    productsByCategory,
+  });
+});
+
 exports.createProducts = catchAsync(async (req, res, next) => {
-  const { name, imageUrl, price, highlight_date } = req.body;
+  const { name, imageUrl, price, highlight_date, categoryId } = req.body;
 
   const newProduct = await Product.create({
     name,
     imageUrl,
     price,
     highlight_date,
+    categoryId,
   });
 
   res.status(200).json({
@@ -31,13 +52,15 @@ exports.createProducts = catchAsync(async (req, res, next) => {
 
 exports.updateProduct = catchAsync(async (req, res, next) => {
   const { product } = req;
-  const { name, imageUrl, price, highlight_date } = req.body;
+  const { name, imageUrl, price, highlight_date, categoryId } = req.body;
+  const productImg = imageUrl.encodeURI(imageUrl);
 
   await product.update({
     name,
-    imageUrl,
+    imageUrl: productImg,
     price,
     highlight_date,
+    categoryId,
   });
 
   res.status(200).json({

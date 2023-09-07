@@ -14,6 +14,11 @@ const Category = db.define('categories', {
     allowNull: false,
     unique: true,
   },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'available',
+  },
 });
 
 module.exports = Category;

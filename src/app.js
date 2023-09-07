@@ -18,6 +18,19 @@ const limiter = rateLimit({
 
 app.use(express.json());
 app.use(cors());
+router.get('/', (req, res) => {
+  res.setHeader(
+    'Access-Control-Allow-Origin',
+    'https://deluxe-gecko-12cac4.netlify.app/'
+  );
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Max-Age', '1800');
+  res.setHeader('Access-Control-Allow-Headers', 'content-type');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'PUT, POST, GET, DELETE, PATCH, OPTIONS'
+  );
+});
 app.use(helmet());
 app.use(hpp());
 app.use(

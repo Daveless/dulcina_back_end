@@ -5,6 +5,8 @@ const authMiddleware = require('../middlewares/auth.middleware');
 
 const orderRouter = express.Router();
 
+orderRouter.route('/').post(ordersController.createOrder);
+
 orderRouter.use(authMiddleware.protect);
 orderRouter.use(authMiddleware.renew);
 
@@ -15,7 +17,6 @@ orderRouter
 
 orderRouter
   .route('/')
-  .post(ordersController.createOrder)
   .get(authMiddleware.restictTo('admin'), ordersController.findOrders);
 
 module.exports = orderRouter;

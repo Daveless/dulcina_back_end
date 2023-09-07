@@ -37,6 +37,11 @@ const Product = db.define('products', {
     allowNull: false,
     defaultValue: 'none',
   },
+  categoryId: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
+  },
 });
 
 module.exports = Product;

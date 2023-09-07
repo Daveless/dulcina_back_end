@@ -1,22 +1,23 @@
 const express = require('express');
+const categoriesController = require('../controllers/category.controller');
+const authMiddleware = require('../middlewares/auth.middleware');
+const validation = require('../middlewares/validation.middleware');
 
+const categoryRouter = express.Router();
 
-const categoryRouter = express.Router()
+categoryRouter.route('/').get(categoriesController.findCategories);
+categoryRouter.route('/:id').get(categoriesController.getCategory);
 
-categoryRouter.get("/", async (req,res) => {
-    try {
-        res.status(200).send("categories")
-    } catch (error) {
-        res.status(400).send({error:error})
-    }
-}) 
+categoryRouter.use(authMiddleware.protect);
+categoryRouter.use(authMiddleware.renew);
 
-categoryRouter.post("/", async (req,res) => {
-    try {
-        res.status(200).send("category")
-    } catch (error) {
-        res.status(400).send({error:error})
-    }
-}) 
+categoryRouter
+  .route('/')
+  .post(
+    authMiddleware.restictTo('admin'),
+    categoriesController.createCategories
+  );
+
+categoryRouter.route('/:id').delete(categoriesController.deleteCategory);
 
 module.exports = categoryRouter;

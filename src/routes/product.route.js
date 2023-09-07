@@ -8,6 +8,9 @@ const productRouter = express.Router();
 
 productRouter.route('/').get(productsController.findProducts);
 productRouter.route('/:id').get(validProduct, productsController.getProduct);
+productRouter
+  .route('/category/:category')
+  .get(productsController.findProductsByCategory);
 
 productRouter.use(authMiddleware.protect);
 productRouter.use(authMiddleware.renew);
