@@ -27,11 +27,14 @@ exports.createCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategory = catchAsync(async (req, res, next) => {
-  const { Category } = req;
+  const { id } = req.params;
+  const currentCategory = await Category.findOne({
+    where: { id, status: 'active' },
+  });
 
   res.status(200).json({
-    message: 'Category by id found',
-    Category,
+    message: 'Category by id foundd',
+    currentCategory,
   });
 });
 
