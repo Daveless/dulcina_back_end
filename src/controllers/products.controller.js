@@ -35,7 +35,7 @@ exports.findProductsByCategory = catchAsync(async (req, res, next) => {
 
 exports.findProductsByCategoryId = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const products = await Category.findAll({
+  const products = await Product.findAll({
     where: { categoryId: id },
   });
 
