@@ -12,6 +12,10 @@ productRouter
   .route('/category/:category')
   .get(productsController.findProductsByCategory);
 
+productRouter
+  .route('/relatedProducts/:id')
+  .get(productsController.findProductsByCategoryId);
+
 productRouter.use(authMiddleware.protect);
 productRouter.use(authMiddleware.renew);
 

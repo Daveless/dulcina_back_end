@@ -33,6 +33,19 @@ exports.findProductsByCategory = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.findProductsByCategoryId = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const products = await Category.findAll({
+    where: { categoryId: id },
+  });
+
+  res.status(200).json({
+    message: 'Products found',
+    results: products.length,
+    products,
+  });
+});
+
 exports.createProducts = catchAsync(async (req, res, next) => {
   const { name, imageUrl, price, highlight_date, categoryId } = req.body;
 
