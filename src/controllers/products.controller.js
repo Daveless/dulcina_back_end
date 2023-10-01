@@ -33,6 +33,18 @@ exports.findProductsByCategory = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.findBestProducts = catchAsync(async (req, res, next) => {
+  const topProducts = await Product.findAll({
+    order: [['times_sold', 'DESC']],
+    limit: 5,
+  });
+
+  res.status(200).json({
+    message: 'Products found',
+    results: topProducts,
+    topProducts,
+  });
+});
 exports.findProductsByCategoryId = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const products = await Product.findAll({

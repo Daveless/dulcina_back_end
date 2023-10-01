@@ -16,6 +16,8 @@ productRouter
   .route('/relatedProducts/:id')
   .get(productsController.findProductsByCategoryId);
 
+productRouter.route('/topProducts').get(productsController.findBestProducts);
+
 productRouter.use(authMiddleware.protect);
 productRouter.use(authMiddleware.renew);
 
