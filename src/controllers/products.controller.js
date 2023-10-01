@@ -11,7 +11,6 @@ exports.findBestProducts = catchAsync(async (req, res, next) => {
   res.status(200).json({
     message: 'Products found',
     results: topProducts,
-    topProducts,
   });
 });
 
