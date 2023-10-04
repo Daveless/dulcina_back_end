@@ -7,6 +7,9 @@ const validation = require('../middlewares/validation.middleware');
 const productRouter = express.Router();
 
 productRouter.route('/').get(productsController.findProducts);
+productRouter
+  .route('/addTimesSold/:id')
+  .patch(validProduct, productsController.addTimesSold);
 productRouter.route('/:id').get(validProduct, productsController.getProduct);
 productRouter
   .route('/category/:category')

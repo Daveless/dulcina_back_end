@@ -100,6 +100,19 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
     product,
   });
 });
+exports.addTimesSold = catchAsync(async (req, res, next) => {
+  const { product } = req;
+  const { add_times_sold } = req.body;
+
+  await product.update({
+    times_sold: product.times_sold + add_times_sold,
+  });
+
+  res.status(200).json({
+    message: 'Product updated',
+    product,
+  });
+});
 
 exports.getProduct = catchAsync(async (req, res, next) => {
   const { product } = req;
