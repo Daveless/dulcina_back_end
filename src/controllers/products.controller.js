@@ -59,7 +59,8 @@ exports.findProductsByCategoryId = catchAsync(async (req, res, next) => {
 });
 
 exports.createProducts = catchAsync(async (req, res, next) => {
-  const { name, imageUrl, price, highlight_date, categoryId } = req.body;
+  const { name, imageUrl, price, highlight_date, categoryId, description } =
+    req.body;
 
   const fixedImgUrl = imageUrl.replace(
     'https:res.cloudinary.comdccvupp4ximageuploadv1694107604dulcinaproducts',
@@ -74,6 +75,7 @@ exports.createProducts = catchAsync(async (req, res, next) => {
     price,
     highlight_date,
     categoryId,
+    description,
   });
 
   res.status(200).json({

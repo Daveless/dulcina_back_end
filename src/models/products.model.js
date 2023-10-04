@@ -18,6 +18,11 @@ const Product = db.define('products', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    defaultValue: 'Regalo de chocolate listo para cualquier ocasión',
+  },
   status: {
     type: DataTypes.STRING,
     allowNull: false,
