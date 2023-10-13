@@ -49,6 +49,7 @@ exports.findProductsByCategoryId = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const products = await Product.findAll({
     where: { categoryId: id },
+    limit: 5,
   });
 
   res.status(200).json({
